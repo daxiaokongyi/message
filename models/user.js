@@ -43,10 +43,15 @@ class User {
       [username]
     );
 
+    // check the result here
+    if (result.rows.length === 0) {
+      return false;
+    }
+
     let user = result.rows[0];
     let hashedPassword = user.password;
 
-    return user && await bcrypt.compare(password, hashedPassword);
+    return await bcrypt.compare(password, hashedPassword);
   }
 
   /** Update last_login_at for user */
